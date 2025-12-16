@@ -24,21 +24,37 @@ A deep learning system that detects AI-generated images with **98% accuracy** us
 ## 🏗️ Architecture
 
 Input Image (224×224×3)
+
         ↓
+        
     ┌─────────────────────┐
+    
     │   Dual Processing   │
+    
     │ ResNet50 │ ViT-B/16 │
+    
     └──────────┴──────────┘
+    
             ↓
+            
     2816 Fused Features
+    
             ↓
+            
     ┌─────────────────────┐
+    
     │   MLP Classifier    │
+    
     │  512 → 128 → 1      │
+    
     └─────────────────────┘
+    
             ↓
+            
     [0.0-1.0] Probability
+    
     (AI-generated if >0.5)
+    
 
     
 ## 🚀 Quick Start
