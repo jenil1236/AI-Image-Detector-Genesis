@@ -23,7 +23,7 @@ A deep learning system that detects AI-generated images with **98% accuracy** us
 
 ## 🏗️ Architecture
 
-Input Image (224×224×3)
+        Input Image (224×224×3)
 
         ↓
         
