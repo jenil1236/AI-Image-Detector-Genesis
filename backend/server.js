@@ -35,13 +35,13 @@ app.get("/", (req, res) => {
    Routes (plug-in)
 ======================= */
 
-// Teammate will add:
-// const analyzeRoutes = require("./routes/analyze.routes");
-// app.use("/api/analyze", analyzeRoutes);
+// History routes for image analysis
+const historyRoutes = require("./routes/history.routes");
+app.use("/api/history", historyRoutes);
 
-// Optional
-// const authRoutes = require("./routes/auth.routes");
-// app.use("/api/auth", authRoutes);
+// Auth routes
+const authRoutes = require("./routes/auth.routes");
+app.use("/api/auth", authRoutes);
 
 /* =======================
    404 Handler
