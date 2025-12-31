@@ -6,22 +6,31 @@ const USERS_COLLECTION = "users";
    Create User (Safe)
 ======================= */
 exports.createUser = async (userData) => {
-  const { uid } = userData;
-  const userRef = db.collection(USERS_COLLECTION).doc(uid);
+  try {
+    const { uid } = userData;
+    console.log("createUser - creating or verifying user:", uid);
+    const userRef = db.collection(USERS_COLLECTION).doc(uid);
 
-  const doc = await userRef.get();
-  if (doc.exists) return; // idempotent
+    const doc = await userRef.get();
+    if (doc.exists) return; // idempotent
 
-  await userRef.set({
-    ...userData,
-    totalAIGen: 0,
-    totalRealGen: 0,
-    history: [],
-    dailyUploads: 3,
-    lastUploadDate: "",
-    createdAt: admin.firestore.Timestamp.now(),
-    lastLogin: admin.firestore.Timestamp.now(),
-  });
+    await userRef.set({
+      ...userData,
+      totalAIGen: 0,
+      totalRealGen: 0,
+      history: [],
+      dailyUploads: 3,
+      lastUploadDate: "",
+      createdAt: admin.firestore.Timestamp.now(),
+      lastLogin: admin.firestore.Timestamp.now(),
+    });
+  } catch (err) {
+    console.error("createUser - error interacting with Firestore:", err && err.message ? err.message : err);
+    console.error(err);
+    if (err && err.code) console.error("createUser - error code:", err.code);
+    if (err && err.details) console.error("createUser - error details:", err.details);
+    // Don't throw - user creation failure should not block authentication flow
+  }
 };
 
 /* =======================

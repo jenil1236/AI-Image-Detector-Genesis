@@ -15,11 +15,12 @@ class AIAnalysisService {
     try {
       // Create form data for the API request
       const formData = new FormData();
+      console.log(formData);
       formData.append('file', imageBuffer, {
         filename: 'image.jpg',
         contentType: 'image/jpeg'
       });
-
+      console.log("before");
       // Make request to external API
       const response = await axios.post(this.API_URL, formData, {
         headers: {
@@ -27,9 +28,9 @@ class AIAnalysisService {
         },
         timeout: 30000, // 30 seconds timeout
       });
-
+      console.log("after");
       const { prediction, heatmap } = response.data;
-
+      console.log("API Response:", { prediction, heatmap });
       // Convert hex heatmap to buffer
       const heatmapBuffer = Buffer.from(heatmap, 'hex');
 
@@ -141,7 +142,7 @@ class AIAnalysisService {
         uploadImageUrl: originalImageUrl,
         modelResult: prediction,
         modelGradCamPng: heatmapImageUrl,
-        llmReasoning,
+        // llmReasoning,
         imageMeta,
         date,
         time,

@@ -8,10 +8,10 @@ exports.verifyFirebaseToken = async (req, res, next) => {
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-
     const token = authHeader.split(" ")[1];
 
     const decodedToken = await auth.verifyIdToken(token);
+    // console.log("verifyFirebaseToken - decoded token:", { uid: decodedToken?.uid, email: decodedToken?.email });
 
     const { uid, email } = decodedToken;
 
@@ -27,6 +27,7 @@ exports.verifyFirebaseToken = async (req, res, next) => {
 
     next();
   } catch (err) {
+    console.error("verifyFirebaseToken - error verifying token:", err && err.message ? err.message : err);
     return res.status(401).json({ message: "Invalid or expired token" });
   }
 };

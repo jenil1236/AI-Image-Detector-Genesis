@@ -8,7 +8,7 @@ const HistoryModel = {
   modelResult: "",           // "Real" | "AI Generated"
   modelGradCamPng: "",       // URL or filename of grad-cam image
 
-  llmReasoning: "",          // simple natural language explanation
+  // llmReasoning: "",          // simple natural language explanation
 
   imageMeta: {
     width: 0,               // px

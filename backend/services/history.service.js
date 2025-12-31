@@ -56,6 +56,9 @@ class HistoryService {
         lastDoc: snapshot.docs[snapshot.docs.length - 1],
       };
     } catch (error) {
+      console.error("getUserHistory - Firestore error:", error && error.message ? error.message : error);
+      console.error(error);
+      if (error && error.code) console.error("getUserHistory - error code:", error.code);
       throw new Error(`Failed to get user history: ${error.message}`);
     }
   }
