@@ -10,7 +10,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=flat&logo=node.js)](https://nodejs.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-10.7-FFCA28?style=flat&logo=firebase)](https://firebase.google.com/)
 
-[Live Demo](https://huggingface.co/spaces/jenil1236/convnext-gradcam-api) • [Research Paper](#-research-paper) • [Documentation](#-features)
+[Live Demo](https://genesis-rose-rho.vercel.app/) • [Research Paper](https://ieeexplore.ieee.org/document/10351320) 
 
 </div>
 
@@ -82,27 +82,36 @@ weighted avg      0.93       0.93       0.92       20000
 - **AI-Generated**: Highlights artifacts, unnatural symmetry, and synthetic features
 
 ---
-
 ## 🏗️ System Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                    Frontend (React)                      │
-│  • Image Upload  • Firebase Auth  • History Dashboard   │
-└────────────────────────┬────────────────────────────────┘
-                         │
-                         ↓
-┌─────────────────────────────────────────────────────────┐
-│                 Backend (Node.js/Express)                │
-│  • API Routes  • Cloudinary  • Firebase Admin           │
-└────────────────────────┬────────────────────────────────┘
-                         │
-                         ↓
-┌─────────────────────────────────────────────────────────┐
-│          ML Model API (Hugging Face Spaces)              │
-│  • ConvNeXt Inference  • Grad-CAM Generation            │
-│  https://huggingface.co/spaces/jenil1236/convnext-gradcam-api
-└─────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+
+    subgraph Frontend["Frontend (React)"]
+        F1[Image Upload]
+        F2[Firebase Authentication]
+        F3[History Dashboard]
+    end
+
+    subgraph Backend["Backend (Node.js / Express)"]
+        B1[API Routes]
+        B2[Cloudinary Integration]
+        B3[Firebase Admin SDK]
+    end
+
+    subgraph ML["ML Model API (Hugging Face Spaces)"]
+        M1[ConvNeXt Inference]
+        M2[Grad-CAM Heatmap Generation]
+    end
+
+    Frontend --> Backend
+    Backend --> ML
+
+    F1 --> B1
+    F2 --> B3
+    B1 --> M1
+    M1 --> M2
+    F3 --> B3
 ```
 
 ---
@@ -207,8 +216,6 @@ Our work builds upon modern CNN architectures and explainable AI techniques:
 | Feature Learning | Local, low-level patterns | Hierarchical + global semantic |
 | Robustness | Limited for advanced generators | Higher generalization |
 
-**📄 Research Paper**: [Link to be added upon publication]
-
 ---
 
 ## 📈 Model Training Details
@@ -217,27 +224,9 @@ Our work builds upon modern CNN architectures and explainable AI techniques:
 - **CIFAKE**: 60,000 real images + 60,000 AI-generated (DALL-E, Midjourney)
 - **Hemg**: Additional 20,000 diverse synthetic images
 - **Total**: 140,000 images (70k real, 70k fake)
-
-### Training Configuration
-```python
-Model: ConvNeXt-Base
-Input Size: 224×224×3
-Batch Size: 32
-Optimizer: AdamW
-Learning Rate: 1e-4
-Epochs: 50
-Loss: Binary Cross-Entropy
-```
-
-### Data Augmentation
-- Random horizontal flip
-- Random rotation (±15°)
-- Color jitter
-- Random crop and resize
-
 ---
 
-## 👥 Team - The DOMinators
+## 👥 Team - 3dev
 
 <table>
   <tr>
@@ -276,32 +265,9 @@ We welcome contributions! Please follow these steps:
 
 ---
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **Hugging Face** for model hosting infrastructure
-- **CIFAKE Dataset** creators for training data
-- **PyTorch** team for the deep learning framework
-- **ConvNeXt** authors for the architecture
-
----
-
-## 📧 Contact
-
-For questions or collaboration:
-- Open an issue on GitHub
-- Email: [Your team email]
-
----
-
 <div align="center">
 
-**Made with ❤️ by The DOMinators**
+**Made with ❤️ by 3dev**
 
 ⭐ Star this repo if you find it useful!
 
